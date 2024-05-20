@@ -1,16 +1,11 @@
 <script setup>
 import DisplayClass from './components/DisplayClass.vue';
 
-const dictionary = [
-          { id: 1, name: 'John Doe', email: 'john@example.com' },
-          { id: 2, name: 'Jane Smith', email: 'janeple.com' },
-          { id: 3, name: 'Sam Johnson', email: 'saxample.com' }
-        ]
 const URL_BASE = 'http://127.0.0.1:5000/'
 </script>
 
 <template>
-  <DisplayClass class_name="Feeding"/>
+  <DisplayClass class_name="Location"/>
 </template>
 
 <style scoped>

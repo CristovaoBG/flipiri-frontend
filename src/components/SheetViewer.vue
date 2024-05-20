@@ -1,6 +1,6 @@
 <template>
     <div>
-      <h2>User Table</h2>
+      <h2>Tabela {{ table_name }}</h2>
       <table>
         <thead>
           <tr>
@@ -21,7 +21,7 @@
   export default {
     name: 'UserTable',
     props:[
-        'dictionary'
+        'dictionary', 'table_name'
     ],
     data() {
       return {

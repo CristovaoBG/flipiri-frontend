@@ -1,39 +1,39 @@
 <template>
-    <SheetViewer :dictionary="value"/>
+    <div v-if="isLoading">Carregando...</div>
+    <SheetViewer v-else :dictionary="value" :table_name="this.class_name"/>
   </template>
   
   <script>
   const URL_BASE = 'http://127.0.0.1:5000/';
   import axios from 'axios';
   import SheetViewer from './SheetViewer.vue';
- 
+  
   export default {
-    props:[
-        'class_name'
-    ],
+    props: ['class_name'],
     data() {
-        return {
-            value: "",
-        };
+      return {
+        value: null,
+        isLoading: true,
+      };
     },
-    created() {
-        axios.get(URL_BASE + 'get_class/', {
-            params: {
-                "class_name": "Feeding"
-            }
-        }).then(response => {
-            this.value = response.data;
-            console.log('OKEYY')
-            console.log(this.value)
-        }).catch(error => {
-            console.error('Erro ao fazer a requisição:', error);
-            console.log("okasdasd");
+    mounted() {
+      axios
+        .get(URL_BASE + 'get_class/', {
+          params: {
+            class_name: this.class_name,
+          },
+        })
+        .then((response) => {
+          this.value = response.data;
+          this.isLoading = false;
+        })
+        .catch((error) => {
+          console.error('Erro ao fazer a requisição:', error);
+          this.isLoading = false;
         });
     },
-    components: { SheetViewer }
-}
+    components: { SheetViewer },
+  };
   </script>
   
-  <style>
-  </style>
-  
+  <style></style>
