@@ -4,11 +4,11 @@
       <table>
         <thead>
           <tr>
-            <th v-for="k in Object.keys(dictionary[0])" :key="k">{{ k }}</th>
+            <th v-for="k in Object.keys(display_dictionary[0])" :key="k">{{ k }}</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in dictionary" :key="item">
+          <tr v-for="item in display_dictionary" :key="item">
             <td v-for="k in Object.keys(item)" :key="k"> {{ item[k] }}</td>
           </tr>
         </tbody>
@@ -31,6 +31,11 @@
           { i: 3, name: 'Sam Johnson', email: 'saxample.com' }
         ]
       };
+    },
+    computed: {
+      display_dictionary(){
+        return Object.values(this.dictionary)
+      }
     }
   };
   </script>
