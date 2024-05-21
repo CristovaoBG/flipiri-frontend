@@ -9,7 +9,9 @@
         </thead>
         <tbody>
           <tr v-for="item in display_dictionary" :key="item">
-            <td v-for="k in Object.keys(item)" :key="k"> {{ item[k] }}</td>
+            <td v-for="k in Object.keys(item)" :key="k"> 
+              <ItemDisplayer :item="item[k]"/>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -17,27 +19,28 @@
   </template>
   
   <script>
-
+import ItemDisplayer from './ItemDisplayer.vue';
   export default {
     name: 'UserTable',
-    props:[
+    props: [
         'dictionary', 'table_name'
     ],
     data() {
-      return {
-        dictionar: [
-          { i: 1, name: 'John Doe', email: 'john@example.com' },
-          { i: 2, name: 'Jane Smith', email: 'janeple.com' },
-          { i: 3, name: 'Sam Johnson', email: 'saxample.com' }
-        ]
-      };
+        return {
+            dictionar: [
+                { i: 1, name: 'John Doe', email: 'john@example.com' },
+                { i: 2, name: 'Jane Smith', email: 'janeple.com' },
+                { i: 3, name: 'Sam Johnson', email: 'saxample.com' }
+            ]
+        };
     },
     computed: {
-      display_dictionary(){
-        return Object.values(this.dictionary)
-      }
-    }
-  };
+        display_dictionary() {
+            return Object.values(this.dictionary);
+        }
+    },
+    components: { ItemDisplayer }
+};
   </script>
   
   <style scoped>

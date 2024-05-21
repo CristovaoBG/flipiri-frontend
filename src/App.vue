@@ -1,11 +1,18 @@
 <script setup>
 import DisplayClass from './components/DisplayClass.vue';
+import DisplayClass2 from './components/DisplayClass.vue';
 
 const URL_BASE = 'http://127.0.0.1:5000/'
 </script>
 
 <template>
+  <DisplayClass class_name="Activity"/>
+  <DisplayClass class_name="AgeRange"/>
+  <DisplayClass class_name="Authors"/>
+  <DisplayClass class_name="Feeding"/>
+  <DisplayClass class_name="Hosting"/>
   <DisplayClass class_name="Location"/>
+  <DisplayClass class_name="Trip"/>
 </template>
 
 <style scoped>
