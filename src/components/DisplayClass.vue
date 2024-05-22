@@ -4,7 +4,7 @@
   </template>
   
   <script>
-  const URL_BASE = 'http://127.0.0.1:5000/';
+  import { URL_BASE } from '../constants';
   import axios from 'axios';
   import SheetViewer from './SheetViewer.vue';
   

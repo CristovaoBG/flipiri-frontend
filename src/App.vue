@@ -1,8 +1,6 @@
 <script setup>
 import DisplayClass from './components/DisplayClass.vue';
-import DisplayClass2 from './components/DisplayClass.vue';
 
-const URL_BASE = 'http://127.0.0.1:5000/'
 </script>
 
 <template>
