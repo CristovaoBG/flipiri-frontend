@@ -1,22 +1,22 @@
 <template>
     <DisplayClass class_name="Activity"/>
     <h2>Nova atividade</h2>
-    <form @submit.prevent="handleSubmit">
+    <form>
       <label for="name">Nome:</label><input type="text" id="name" v-model="formData.name" required>
       <br>
-      <label for="date">Data:</label> <input type="datetime-local" id="date" v-model="formData.date" required>
+      <label for="date">Data de início:</label> <input type="datetime-local" id="date" v-model="formData.date_start" required>
       <br>
-      <label for="duration">Duração:</label> <input type="text" id="duration" v-model="formData.duration" required>
+      <label for="duration">Data de término:</label> <input type="datetime-local" id="date" v-model="formData.date_end" required>
       <br>
       <!-- <label for="authors">Autores:</label> <ul><li v-for="auth in authorsList" :key="auth">{{ auth.author }}</li></ul>> -->
-      <label for="authors">Autores:</label> 
       <form @submit.prevent="submitAuthor">
+        Autores:
+        <div v-for="value, key in formData.authors" :key="key">-{{ value.name }}</div>
         <select v-model="selectedAuth">
           <option v-for="auth in authorList.value" :key="auth.id" :value="auth">{{ auth.name }}</option>
         </select>
         <input type="submit" value="Enviar">
       </form>
-      selecionados: <div v-for="value, key in formData.authors" :key="key">-{{ value.name }}</div>
       <br>
       <label for="responsible_author">Autor Responsável: </label>
       <form @submit.prevent="submitAuthor">
@@ -25,13 +25,18 @@
         </select>
       </form>
       <br>
-      <label for="location">Localização (ID):</label> <input type="text" id="location" v-model="formData.location" required>
+      <label for="location">Localização (ID):</label>
+      <form @submit.prevent="submitAuthor">
+        <select v-model="formData.location">
+          <option v-for="loc in locationList.value" :key="loc.id" :value="loc">{{ loc.name }}</option>
+        </select>
+      </form>
       <br>
       <label for="age_range">Faixa Etária (ID):</label> <input type="text" id="age_range" v-model="formData.age_range" required>
       <br>
       <label for="category">Categoria:</label> <input type="text" id="category" v-model="formData.category" required>
       <br><br>
-      <button type="submit">Enviar</button>
+      <button type="submit" @click.prevent="handleSubmit">Enviar</button>
       <label for="author-select">Selecione um autor:</label>
 
 <button id="add-author-btn">Adicionar Autor</button>
@@ -41,7 +46,7 @@
     </div>
 
 <div id="selected-authors">
-  debug: {{ authorList.value }}
+  debug: {{ locationList.value }}
   <!-- Aqui é onde os autores selecionados serão exibidos -->
 </div>
 
@@ -51,13 +56,13 @@
 <script setup>
 import DisplayClass from '../components/DisplayClass.vue';
 import { ref, onMounted, computed, reactive } from 'vue';
-import { getClass, getClassAndFormat } from '../dbInterface';
+import { getClass, getClassAndFormat, postData } from '../dbInterface';
 
 // Definindo o estado do formulário
 const formData = ref({
   name: '',
-  date: '',
-  duration: '',
+  date_start: '',
+  date_end: '',
   authors: [],
   responsibleAuthor: null,
   location: '',
@@ -67,12 +72,16 @@ const formData = ref({
 
 const selectedAuth = ref('')
 const authorList = reactive({});
+const locationList = reactive({});
 
-onMounted(() => { getClassAndFormat('Authors', authorList, "name");})
+onMounted(() => {
+  getClassAndFormat('Authors', authorList, "name");
+  getClassAndFormat('Location', locationList, "name");
+})
 
 const handleSubmit = () => {
   const data = formData.value;
-  console.log(data);
+  postData('add_author/', data, (response) => {console.log(response)})
 };
 
 const submitAuthor = () => {

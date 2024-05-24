@@ -41,3 +41,12 @@ export const getClassAndFormat = (className, refVar, classIdValue) => {
     })
 }
 
+export const postData = (url, data, onResponse) => {
+  axios.post(URL_BASE + url, data)
+          .then(response => {
+            onResponse(response)
+            })
+          .catch(error => {
+            console.error('Erro ao enviar mensagem ao servidor:', error);
+          });
+        }
