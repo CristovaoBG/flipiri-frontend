@@ -1,16 +1,26 @@
 <script setup>
-import DisplayClass from './components/DisplayClass.vue';
+import { ref } from 'vue';
+import MainView from './views/MainView.vue';
+import AcitvityVIew from './views/AcitvityVIew.vue';
 
+const showActivity = ref(false);
+const showAuthors = ref(true);
+const showHosting = ref(false);
+
+const clear = () => {
+  showActivity.value = false;
+  showAuthors.value = false;
+  showHosting.value = false;
+};
 </script>
 
+
+
 <template>
-  <DisplayClass class_name="Activity"/>
-  <DisplayClass class_name="AgeRange"/>
-  <DisplayClass class_name="Authors"/>
-  <DisplayClass class_name="Feeding"/>
-  <DisplayClass class_name="Hosting"/>
-  <DisplayClass class_name="Location"/>
-  <DisplayClass class_name="Trip"/>
+  <button @click="clear(); showActivity = true">Atividades</button>
+  <button @click="clear(); showAuthors = true">Autores</button>
+  <button @click="clear(); showHosting = true">Hospedagem</button>
+  <div v-if="showActivity"><AcitvityVIew/></div>
 </template>
 
 <style scoped>
