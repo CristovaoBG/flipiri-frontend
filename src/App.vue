@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import MainView from './views/MainView.vue';
 import AcitvityVIew from './views/AcitvityVIew.vue';
+import AuthorsView from './views/AuthorsView.vue';
 
 const showActivity = ref(false);
 const showAuthors = ref(true);
@@ -21,6 +22,7 @@ const clear = () => {
   <button @click="clear(); showAuthors = true">Autores</button>
   <button @click="clear(); showHosting = true">Hospedagem</button>
   <div v-if="showActivity"><AcitvityVIew/></div>
+  <div v-if="showAuthors"><AuthorsView/></div>
 </template>
 
 <style scoped>
