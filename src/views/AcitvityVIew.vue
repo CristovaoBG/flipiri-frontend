@@ -1,7 +1,7 @@
 <template>
-    <DisplayClass class_name="Activity"/>
+    <DisplayClass class_name="Activity" :key="displayClassKey"/>
     <h2>Nova atividade</h2>
-    <form>
+    <form @submit.prevent="handleSubmit">
       <label for="name">Nome:</label><input type="text" id="name" v-model="formData.name" required>
       <br>
       <label for="date">Data de início:</label> <input type="datetime-local" id="date" v-model="formData.date_start" required>
@@ -20,7 +20,7 @@
       <br>
       <label for="responsible_author">Autor Responsável: </label>
       <form @submit.prevent="submitAuthor">
-        <select v-model="formData.responsibleAuthor">
+        <select v-model="formData.responsible_author">
           <option v-for="auth in authorList.value" :key="auth.id" :value="auth">{{ auth.name }}</option>
         </select>
       </form>
@@ -32,14 +32,15 @@
         </select>
       </form>
       <br>
-      <label for="age_range">Faixa Etária (ID):</label> <input type="text" id="age_range" v-model="formData.age_range" required>
+      <label for="age_range">Idade mínima:</label> <input type="number" id="age_range" v-model="formData.age_range_start" required>
+      <label for="age_range2">Idade máxima:</label> <input type="number" id="age_range2" v-model="formData.age_range_end" required>
       <br>
       <label for="category">Categoria:</label> <input type="text" id="category" v-model="formData.category" required>
       <br><br>
-      <button type="submit" @click.prevent="handleSubmit">Enviar</button>
+      <button type="submit" @click="displayClassKey+=1">Enviar</button>
       <label for="author-select">Selecione um autor:</label>
 
-<button id="add-author-btn">Adicionar Autor</button>
+<button id="add-author-btn" @submit.prevent="handleSubmit">Adicionar Autor</button>
 
 <div v-for="(value, key) in formData" :key="key">
       - {{ key }}: {{ value }}
@@ -64,15 +65,17 @@ const formData = ref({
   date_start: '',
   date_end: '',
   authors: [],
-  responsibleAuthor: null,
+  responsible_author: null,
   location: '',
-  ageRange: '',
+  age_range_start: '',
+  age_range_end: 0,
   category: ''
 });
 
 const selectedAuth = ref('')
 const authorList = reactive({});
 const locationList = reactive({});
+const displayClassKey = ref(0);
 
 onMounted(() => {
   getClassAndFormat('Authors', authorList, "name");
@@ -81,7 +84,10 @@ onMounted(() => {
 
 const handleSubmit = () => {
   const data = formData.value;
-  postData('add_author/', data, (response) => {console.log(response)})
+  postData('add_author/', data, (response) => {
+    displayClassKey.value += 1
+    console.log(response)
+  })
 };
 
 const submitAuthor = () => {
@@ -89,7 +95,6 @@ const submitAuthor = () => {
     formData.value.authors.push(selectedAuth.value)
   }
 }
-
 
 </script>
 
