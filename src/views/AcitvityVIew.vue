@@ -85,7 +85,12 @@ onMounted(() => {
 const handleSubmit = () => {
   const data = formData.value;
   postData('add_author/', data, (response) => {
-    displayClassKey.value += 1
+    if (response.data.success){
+      displayClassKey.value += 1
+    }
+    else {
+      alert(response.data.error_msg)
+    }
     console.log(response)
   })
 };
