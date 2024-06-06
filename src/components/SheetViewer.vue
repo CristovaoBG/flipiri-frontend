@@ -4,14 +4,15 @@
       <table>
         <thead>
           <tr>
-            <th v-for="k in Object.keys(display_dictionary[0])" :key="k">{{ k }}</th>
+            <th v-for="k in keys" :key="k">{{ k }}</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in display_dictionary" :key="item">
-            <td v-for="k in Object.keys(item)" :key="k"> 
-              <ItemDisplayer :item="item[k]"/>
+          <tr v-for="id in Object.keys(dictionary)" :key="id">
+            <td v-for="k in Object.keys(dictionary[id])" :key="k"> 
+              <ItemDisplayer :item="dictionary[id][k]"/>
             </td>
+            <a @click="edit_item(id)" href="javascript:void(0)">editar</a>
           </tr>
         </tbody>
       </table>
@@ -35,9 +36,14 @@ import ItemDisplayer from './ItemDisplayer.vue';
         };
     },
     computed: {
-        display_dictionary() {
-            return Object.values(this.dictionary);
+        keys() {
+            return Object.keys(Object.values(this.dictionary)[0]);
         }
+    },
+    methods: {
+      edit_item(id){
+        this.$emit('edit-item', id)
+      }
     },
     components: { ItemDisplayer }
 };
