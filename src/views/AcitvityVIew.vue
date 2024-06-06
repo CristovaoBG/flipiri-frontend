@@ -1,5 +1,5 @@
 <template>
-    <DisplayClass class_name="Activity" :key="displayClassKey"/>
+    <DisplayClass class_name="Activity" :key="displayClassKey" @edit-item="edit_item"/>
     <h2>Nova atividade</h2>
     <form @submit.prevent="handleSubmit">
       <label for="name">Nome:</label><input type="text" id="name" v-model="formData.name" required>
@@ -57,7 +57,7 @@
 <script setup>
 import DisplayClass from '../components/DisplayClass.vue';
 import { ref, onMounted, computed, reactive } from 'vue';
-import { getClass, getClassAndFormat, postData } from '../dbInterface';
+import { getClass, getClassAndFormat, postData, getItemFromId } from '../dbInterface';
 
 // Definindo o estado do formulário
 const formData = ref({
@@ -99,6 +99,12 @@ const submitAuthor = () => {
   if (selectedAuth.value && !formData.value.authors.includes(selectedAuth.value)) {
     formData.value.authors.push(selectedAuth.value)
   }
+}
+
+const edit_item = (item_id) => {
+  getItemFromId(item_id, (response) => {
+    console.log(response.data)
+  })
 }
 
 </script>

@@ -50,3 +50,19 @@ export const postData = (url, data, onResponse) => {
             console.error('Erro ao enviar mensagem ao servidor:', error);
           });
         }
+
+export const getItemFromId = (item_id, onResponse) => {
+  console.log("sending request for item")
+  axios
+  .get(`${URL_BASE}get_item_from_id/`, {
+    params: {
+      _id: item_id
+    }
+  })
+  .then(response => {
+    onResponse(response)
+  })
+  .catch(error => {
+    console.error('Erro ao fazer a requisição:', error)
+  })
+}
