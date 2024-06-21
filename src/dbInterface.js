@@ -27,11 +27,11 @@ export const getClassAndFormat = (className, refVar, classIdValue) => {
     })
     .then(response => {
       let output = [];
-      let i = 0
+      
       let data = response.data
       for (let key in data) {
-        output.push({ [classIdValue]: data[key][classIdValue], '_id': key, 'id': i});
-        i+=1
+        output.push({ [classIdValue]: data[key][classIdValue], '_id': key});
+        
       }
       console.log(output)
       refVar.value = output
@@ -66,3 +66,4 @@ export const getItemFromId = (item_id, onResponse) => {
     console.error('Erro ao fazer a requisição:', error)
   })
 }
+

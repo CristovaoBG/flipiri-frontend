@@ -68,7 +68,7 @@ const formData = ref({
   responsible_author: null,
   location: '',
   age_range_start: '',
-  age_range_end: 0,
+  age_range_end: '',
   category: ''
 });
 
@@ -83,7 +83,9 @@ onMounted(() => {
 
 const handleSubmit = () => {
   const data = formData.value;
-  postData('add_author/', data, (response) => {console.log(response)})
+  postData('add_author/', data, (response) => {
+    console.log(response)
+  })
 };
 
 const submitAuthor = () => {

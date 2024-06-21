@@ -13,7 +13,7 @@
         Autores:
         <div v-for="value, key in formData.authors" :key="key">-{{ value.name }}</div>
         <select v-model="selectedAuth">
-          <option v-for="auth in authorList.value" :key="auth.id" :value="auth">{{ auth.name }}</option>
+          <option v-for="auth in authorList.value" :key="auth._id" :value="auth">{{ auth.name }}</option>
         </select>
         <input type="submit" value="Enviar">
       </form>
@@ -21,14 +21,14 @@
       <label for="responsible_author">Autor Responsável: </label>
       <form @submit.prevent="submitAuthor">
         <select v-model="formData.responsible_author">
-          <option v-for="auth in authorList.value" :key="auth.id" :value="auth">{{ auth.name }}</option>
+          <option v-for="auth in authorList.value" :key="auth._id" :value="auth">{{ auth.name }}</option>
         </select>
       </form>
       <br>
       <label for="location">Localização (ID):</label>
       <form @submit.prevent="submitAuthor">
         <select v-model="formData.location">
-          <option v-for="loc in locationList.value" :key="loc.id" :value="loc">{{ loc.name }}</option>
+          <option v-for="loc in locationList.value" :key="loc._id" :value="loc">{{ loc.name }}</option>
         </select>
       </form>
       <br>
@@ -96,16 +96,55 @@ const handleSubmit = () => {
 };
 
 const submitAuthor = () => {
-  if (selectedAuth.value && !formData.value.authors.includes(selectedAuth.value)) {
-    formData.value.authors.push(selectedAuth.value)
+  if (!selectedAuth.value) return;
+  // veja se ja ta incluso
+  for (let auth of formData.value.authors){
+    if (selectedAuth.value.name === auth.name) return;
   }
+  formData.value.authors.push(selectedAuth.value)
 }
 
 const edit_item = (item_id) => {
+  // habilitar formulario de edição
+  
   getItemFromId(item_id, (response) => {
-    console.log(response.data)
-  })
-}
+    const item = response.data;
+    // formatar datas
+    const date_start = new Date(item.date_start).toISOString().slice(0, 16);
+    const date_end = new Date(item.date_end).toISOString().slice(0, 16);
+    
+    let auth_list = []
+    formData.value = {
+      _id: item._id,
+      name: item.name,
+      date_start: date_start,
+      date_end: date_end,
+      authors: [],
+      responsible_author: "",
+      location: "",
+      age_range_start: item.age_range_start,
+      age_range_end: item.age_range_end,
+      category: item.category
+    };
+    // formatar lista de autores
+    for(let author of item.authors){
+      console.log(author)
+      let str_id = author.split("'")[1]
+      getItemFromId(str_id, (response) => {
+        let auth = {"name": response.data.name, "_id": response.data._id.split("'")[1]}
+        formData.value.authors.push(auth)
+      })
+    }
+        // autor responsavel
+    getItemFromId(item.responsible_author.split("'")[1], (response) => {
+      formData.value.responsible_author = {"name": response.data.name, "_id": response.data._id.split("'")[1]}
+    });
+    // localizacao
+    getItemFromId(item.location.split("'")[1], (response) => {
+      formData.value.location = {"name": response.data.name, "_id": response.data._id.split("'")[1]}
+    });
+  });
+};
 
 </script>
 
