@@ -14,6 +14,7 @@ export const getClass = (class_name, refVar) => {
     })
     .catch(error => {
       console.error('Erro ao fazer a requisição:', error)
+      alert("Erro no servidor.")
     })
 }
 
@@ -38,6 +39,7 @@ export const getClassAndFormat = (className, refVar, classIdValue) => {
     })
     .catch(error => {
       console.error('Erro ao fazer a requisição:', error)
+      alert("Erro no servidor.")
     })
 }
 
@@ -48,6 +50,7 @@ export const postData = (url, data, onResponse) => {
             })
           .catch(error => {
             console.error('Erro ao enviar mensagem ao servidor:', error);
+            alert("Erro no servidor.")
           });
         }
 
@@ -64,6 +67,7 @@ export const getItemFromId = (item_id, onResponse) => {
   })
   .catch(error => {
     console.error('Erro ao fazer a requisição:', error)
+    alert("Erro no servidor.")
   })
 }
 
