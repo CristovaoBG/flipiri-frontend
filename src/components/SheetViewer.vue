@@ -12,7 +12,8 @@
             <td v-for="k in Object.keys(dictionary[id])" :key="k"> 
               <ItemDisplayer :item="dictionary[id][k]"/>
             </td>
-            <a @click="edit_item(id)" href="javascript:void(0)">editar</a>
+            <a v-show="editable" @click="editItem(id)" href="javascript:void(0)">editar</a>
+            <br><a v-show="deletable" @click="deleteItem(id)" href="javascript:void(0)">deletar</a>
           </tr>
         </tbody>
       </table>
@@ -24,7 +25,7 @@ import ItemDisplayer from './ItemDisplayer.vue';
   export default {
     name: 'UserTable',
     props: [
-        'dictionary', 'table_name'
+        'dictionary', 'table_name', 'editable', 'deletable'
     ],
     data() {
         return {
@@ -41,8 +42,11 @@ import ItemDisplayer from './ItemDisplayer.vue';
         }
     },
     methods: {
-      edit_item(id){
+      editItem(id){
         this.$emit('edit-item', id)
+      },
+      deleteItem(id){
+        this.$emit('delete-item', id)
       }
     },
     components: { ItemDisplayer }

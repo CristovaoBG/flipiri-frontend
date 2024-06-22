@@ -1,6 +1,10 @@
 <template>
     <div v-if="isLoading">Carregando...</div>
-    <SheetViewer v-else :dictionary="value" :table_name="this.class_name"/>
+    <SheetViewer v-else 
+    :dictionary="value" 
+    :table_name="this.class_name"
+    :editable="editable"
+    :deletable="deletable"/>
   </template>
   
   <script>
@@ -9,7 +13,7 @@
   import SheetViewer from './SheetViewer.vue';
   
   export default {
-    props: ['class_name'],
+    props: ['class_name', 'editable', 'deletable'],
     data() {
       return {
         value: null,
