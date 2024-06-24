@@ -7,7 +7,7 @@
   :deletable="true"
   />
   <!-- botao de nova atividade -->
-  <button v-if="!showEditActivity && !showNewActivity" type="submit" @click="newActivity">Nova Atividade</button>
+  <button v-if="!showEditActivity && !showNewActivity" type="submit" @click="newActivity">Novo Autor</button>
 
   <div v-show="showNewActivity || showEditActivity ">
     <h2>{{ formMode }}</h2>
@@ -17,6 +17,13 @@
       <label for="name">Sexo:</label><input type="text" id="sex" v-model="formData.sex" required>
       <br>
       <label for="date">Chegada:</label> <input type="datetime-local" id="date" v-model="formData.arrival" required>
+      <br>
+      <label for="hosting">Hospedagem: </label>
+        <form>
+          <select v-model="formData.hosting">
+            <option v-for="place in hostingList.value" :key="place._id" :value="place">{{ place.name }}</option>
+          </select>
+        </form>
       <br>
       <label for="duration">Partida:</label> <input type="datetime-local" id="date" v-model="formData.departure" required>
       <br><br>
@@ -39,13 +46,19 @@ const formData = ref({
   name: '',
   sex: '',
   arrival: null,
-  departure: null
+  departure: null,
+  hosting: null
 });
 
 const displayClassKey = ref(0);
 const formMode = ref('')
 const showEditActivity = ref(false)
 const showNewActivity = ref(false)
+const hostingList = reactive({});
+
+onMounted(() => {
+  getClassAndFormat('Hosting', hostingList, "name");
+  })
 
 const handleSubmit = () => {
   const data_type = showEditActivity.value? "edition" : "new_entry"
@@ -75,7 +88,7 @@ const newActivity = () => {
     arrival: null,
     departure: null
   }
-  formMode.value = "Nova Atividade"
+  formMode.value = "Novo Autor"
   showEditActivity.value = false
   showNewActivity.value = true
 }
@@ -102,7 +115,7 @@ const editItem = (item_id) => {
   // habilitar formulario de edição
   showEditActivity.value = true
   showNewActivity.value = false
-  formMode.value = "Edição de Atividade"
+  formMode.value = "Edição de Autor"
   getItemFromId(item_id, (response) => {
     const item = response.data;
     // formatar datas
@@ -115,7 +128,13 @@ const editItem = (item_id) => {
       sex: item.sex,
       arrival: arrival,
       departure: departure,
+      hosting: ""
     };
+
+    getItemFromId(item.hosting.split("'")[1], (response) => {
+      formData.value.hosting = {"name": response.data.name, "_id": response.data._id.split("'")[1]}
+    });
+    
   });
 };
 

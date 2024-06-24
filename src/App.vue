@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from 'vue';
-import MainView from './views/MainView.vue';
 import AcitvityVIew from './views/AcitvityVIew.vue';
 import AuthorsView from './views/AuthorsView.vue';
+import HostingView from './views/HostingView.vue';
 
 const showActivity = ref(false);
 const showAuthors = ref(true);
@@ -15,14 +15,13 @@ const clear = () => {
 };
 </script>
 
-
-
 <template>
   <button @click="clear(); showActivity = true">Atividades</button>
   <button @click="clear(); showAuthors = true">Autores</button>
   <button @click="clear(); showHosting = true">Hospedagem</button>
   <div v-if="showActivity"><AcitvityVIew/></div>
   <div v-if="showAuthors"><AuthorsView/></div>
+  <div v-if="showHosting"><HostingView/></div>
 </template>
 
 <style scoped>
@@ -38,4 +37,6 @@ const clear = () => {
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #42b883aa);
 }
+
 </style>
+
