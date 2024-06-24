@@ -20,7 +20,7 @@
         <br>
         <!-- <label for="authors">Autores:</label> <ul><li v-for="auth in authorsList" :key="auth">{{ auth.author }}</li></ul>> -->
         <form @submit.prevent="submitAuthor">
-          Autores:
+          Autores: <p v-show="formData.authors.length === 0"> Nenhum autor</p>
           <div v-for="value, key in formData.authors" :key="key">- {{ value.name }}<a @click.prevent="removeAuthor(value)" href="javascript:void(0)"> remover</a> </div>
           <select v-model="selectedAuth">
             <option v-for="auth in authorList.value" :key="auth._id" :value="auth">{{ auth.name }}</option>
@@ -90,6 +90,10 @@ onMounted(() => {
 const handleSubmit = () => {
   const data_type = showEditActivity.value? "edition" : "new_entry"
   const data = {type: data_type, value: formData.value}
+  if (formData.value.authors.length === 0){
+    alert("Não há nenhum autor na atividade.")
+    return
+  }
   postData('add_activity/', data, (response) => {
     if (response.data.success){
       displayClassKey.value += 1
