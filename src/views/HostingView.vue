@@ -7,7 +7,7 @@
     :deletable="true"
     />
     <!-- botao de nova atividade -->
-    <button v-if="!showEditActivity && !showNewActivity" type="submit" @click="newActivity">Nova Atividade</button>
+    <button v-if="!showEditActivity && !showNewActivity" type="submit" @click="newActivity">Nova Hospedagem</button>
 
     <div v-show="showNewActivity || showEditActivity ">
       <h2>{{ formMode }}</h2>
