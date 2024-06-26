@@ -92,7 +92,8 @@ const cancelSubmission = () => {
 }
 
 const removeAuthor = (obj) => {
-formData.value.passenger_list.splice(obj,1)
+  const id = formData.value.passenger_list.indexOf(obj)
+  formData.value.passenger_list.splice(id,1)
 }
 
 const submitAuthor = () => {
