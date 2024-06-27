@@ -71,3 +71,22 @@ export const getItemFromId = (item_id, onResponse) => {
   })
 }
 
+
+export const getStatus = (statusLabel, onResponse) => {
+  console.log("sending request for status")
+  axios
+  .get(`${URL_BASE}get_status/`, {
+    params: {
+      status_label: statusLabel
+    }
+  })
+  .then(response => {
+    onResponse(response)
+    console.log(response)
+  })
+  .catch(error => {
+    console.error('Erro ao fazer a requisição:', error)
+    alert("Erro no servidor.")
+  })
+}
+
