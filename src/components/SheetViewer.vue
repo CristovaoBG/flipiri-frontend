@@ -9,7 +9,7 @@
         </thead>
         <tbody>
           <tr v-for="id in Object.keys(dictionary)" :key="id">
-            <td v-for="k in keys" :key="k" :style="k==y_label?'background-color:#614242 ;':''"> 
+            <td v-for="k in keys" :key="k" :style="k==yLabel?'background-color:#614242 ;':''"> 
               <ItemDisplayer :item="dictionary[id][k]"/>
             </td>
             <a v-show="editable" @click="editItem(id)" href="javascript:void(0)">editar</a>
@@ -41,7 +41,7 @@ import ItemDisplayer from './ItemDisplayer.vue';
         type: Boolean,
         default: false
       },
-      y_label: {
+      yLabel: {
         type: String,
         default: ""
       }
@@ -59,12 +59,12 @@ import ItemDisplayer from './ItemDisplayer.vue';
       keys() {
             let ks = Object.keys(Object.values(this.dictionary)[0])
             console.log(ks)
-            if (this.y_label !== "") {
-              const id = ks.indexOf(this.y_label);
+            if (this.yLabel !== "") {
+              const id = ks.indexOf(this.yLabel);
               if (id >=0) { // Verifica se y_label está presente em ks
                 ks.splice(id, 1); // Remove y_label de ks
               }
-              ks = [this.y_label, ...ks]
+              ks = [this.yLabel, ...ks]
             }
             return ks;
         }

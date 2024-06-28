@@ -44,7 +44,8 @@ const toggleMode = () => {
     <div v-if="showTravel"><TravelView/></div>
   </div>
   <div v-else>
-    <VisualizeComponent :status-label="'atividade_por_autor'"/>
+    <VisualizeComponent :status-label="'activity_by_location'" :y-label="'location'"/><br>
+    <VisualizeComponent :status-label="'activity_by_author'" :y-label="'author'"/><br>
   </div>
 
 </template>
