@@ -41,6 +41,20 @@
           } else {
             this.value = this.item
           }
+      },
+      watch: {
+        item(newVal, oldVal){
+            console.log(`Item mudou de "${oldVal}" para "${newVal}"`);
+            if (typeof this.item === 'string' && this.item.includes('ObjectId')) {
+                this.getObjId(this.item);
+            } else if (Array.isArray(this.item)) {
+                this.item.forEach(k => {
+                    this.getObjId(k);
+                });
+            } else {
+                this.value = this.item
+            }
+        }
       }
   }
   </script>
