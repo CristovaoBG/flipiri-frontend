@@ -1,5 +1,5 @@
 <template>
-  <SheetViewer :dictionary="dictionary"/>
+  <SheetViewer :dictionary="dictionary" :y_label="'author'"/>
 </template>
 
 <script setup>

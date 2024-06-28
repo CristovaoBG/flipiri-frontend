@@ -4,12 +4,12 @@
       <table>
         <thead>
           <tr>
-            <th v-for="k in keys" :key="k">{{ k }}</th>
+            <th v-for="k in keys" :key="k" @click.prevent="(e) => {console.log(e)}">{{ k }}</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="id in Object.keys(dictionary)" :key="id">
-            <td v-for="k in Object.keys(dictionary[id])" :key="k"> 
+            <td v-for="k in keys" :key="k" :style="k==y_label?'background-color:#614242 ;':''"> 
               <ItemDisplayer :item="dictionary[id][k]"/>
             </td>
             <a v-show="editable" @click="editItem(id)" href="javascript:void(0)">editar</a>
@@ -24,9 +24,28 @@
 import ItemDisplayer from './ItemDisplayer.vue';
   export default {
     name: 'UserTable',
-    props: [
-        'dictionary', 'table_name', 'editable', 'deletable'
-    ],
+    props: {
+      dictionary: {
+        type: Object,
+        default: [{}]
+      },
+      table_name: {
+        type: String,
+        default: 'TABELA'
+      },
+      editable: {
+        type: Boolean,
+        default: false
+      },
+      deletable: {
+        type: Boolean,
+        default: false
+      },
+      y_label: {
+        type: String,
+        default: ""
+      }
+    },
     data() {
         return {
             dictionar: [
@@ -37,8 +56,17 @@ import ItemDisplayer from './ItemDisplayer.vue';
         };
     },
     computed: {
-        keys() {
-            return Object.keys(Object.values(this.dictionary)[0]);
+      keys() {
+            let ks = Object.keys(Object.values(this.dictionary)[0])
+            console.log(ks)
+            if (this.y_label !== "") {
+              const id = ks.indexOf(this.y_label);
+              if (id >=0) { // Verifica se y_label está presente em ks
+                ks.splice(id, 1); // Remove y_label de ks
+              }
+              ks = [this.y_label, ...ks]
+            }
+            return ks;
         }
     },
     methods: {
