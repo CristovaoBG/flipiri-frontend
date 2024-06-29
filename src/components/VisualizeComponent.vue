@@ -1,6 +1,5 @@
 <template>
-    <button @click.prevent="() => {toggle=!toggle}">{{toggle? "Esconder "+yLabel:"Mostrar "+yLabel}}</button>
-    <SheetViewer v-show="toggle" :dictionary="dictionary" :y-label="yLabel"/>
+    <SheetViewer :dictionary="dictionary" :y-label="yLabel"/>
 </template>
 
 <script setup>
