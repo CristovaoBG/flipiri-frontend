@@ -100,7 +100,7 @@
       formData.value = {
         _id: item._id.split("'")[1],
         name: item.name,
-        address: item.cost,
+        cost: item.cost,
       };      
     });
   };
