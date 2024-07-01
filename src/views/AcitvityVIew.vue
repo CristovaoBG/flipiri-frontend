@@ -8,7 +8,6 @@
     />
     <!-- botao de nova atividade -->
     <button v-if="!showEditActivity && !showNewActivity" type="submit" @click="newActivity">Nova Atividade</button>
-
     <div v-show="showNewActivity || showEditActivity ">
       <h2>{{ formMode }}</h2>
       <form @submit.prevent="handleSubmit">
@@ -54,6 +53,7 @@
         </div> -->
     </form>
   </div>
+  <div ref="pageBottomDiv"></div>
 </template>
 
 <script setup>
@@ -74,6 +74,7 @@ const formData = ref({
   category: ''
 });
 
+const pageBottomDiv = ref(null);
 const selectedAuth = ref('')
 const authorList = reactive({});
 const locationList = reactive({});
@@ -203,6 +204,7 @@ const editItem = (item_id) => {
     // localizacao
     getItemFromId(item.location.split("'")[1], (response) => {
       formData.value.location = {"name": response.data.name, "_id": response.data._id.split("'")[1]}
+      pageBottomDiv.value.scrollIntoView({ behavior: 'smooth' });
     });
   });
 };

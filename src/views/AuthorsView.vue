@@ -34,6 +34,7 @@
       </div> -->
   </form>
 </div>
+<div ref="pageBottomDiv"></div>
 </template>
 
 <script setup>
@@ -49,7 +50,7 @@ const formData = ref({
   departure: null,
   hosting: null
 });
-
+const pageBottomDiv = ref(null);
 const displayClassKey = ref(0);
 const formMode = ref('')
 const showEditActivity = ref(false)
@@ -133,6 +134,7 @@ const editItem = (item_id) => {
 
     getItemFromId(item.hosting.split("'")[1], (response) => {
       formData.value.hosting = {"name": response.data.name, "_id": response.data._id.split("'")[1]}
+      pageBottomDiv.value.scrollIntoView({ behavior: 'smooth' });
     });
     
   });

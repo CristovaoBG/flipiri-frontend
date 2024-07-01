@@ -37,6 +37,7 @@
       </div> -->
     </form>
   </div>
+  <div ref="pageBottomDiv"></div>
 </template>
 
 <script setup>
@@ -54,6 +55,7 @@ const formData = ref({
   passenger_list: []
 });
 
+const pageBottomDiv = ref(null);
 const selectedAuth = ref('')
 const authorList = reactive({});
 const displayClassKey = ref(0);
@@ -163,7 +165,8 @@ const editItem = (item_id) => {
         let auth = {"name": response.data.name, "_id": response.data._id.split("'")[1]}
         formData.value.passenger_list.push(auth)
       })
-    } 
+    }
+    pageBottomDiv.value.scrollIntoView({ behavior: 'smooth' });
   });
 };
 

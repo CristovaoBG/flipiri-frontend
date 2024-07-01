@@ -22,6 +22,7 @@
         </div> -->
     </form>
   </div>
+  <div ref="pageBottomDiv"></div>
   </template>
   
   <script setup>
@@ -35,7 +36,8 @@
     address: '',
   });
   
-  const displayClassKey = ref(0);
+  const pageBottomDiv = ref(null);
+const displayClassKey = ref(0);
   const formMode = ref('')
   const showEditActivity = ref(false)
   const showNewActivity = ref(false)
@@ -101,7 +103,8 @@
         _id: item._id.split("'")[1],
         name: item.name,
         address: item.address,
-      };      
+      };  
+      pageBottomDiv.value.scrollIntoView({ behavior: 'smooth' });    
     });
   };
   

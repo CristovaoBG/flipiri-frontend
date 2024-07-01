@@ -25,6 +25,7 @@
         </div> -->
     </form>
   </div>
+  <div ref="pageBottomDiv"></div>
 </template>
 
 <script setup>
@@ -39,6 +40,7 @@ const formData = ref({
     price: 0.0
 });
 
+const pageBottomDiv = ref(null);
 const displayClassKey = ref(0);
 const formMode = ref('')
 const showEditActivity = ref(false)
@@ -110,7 +112,7 @@ const editItem = (item_id) => {
       vacancies: item.vacancies,
       price: item.price
     };
-
+    pageBottomDiv.value.scrollIntoView({ behavior: 'smooth' });
   });
 };
 

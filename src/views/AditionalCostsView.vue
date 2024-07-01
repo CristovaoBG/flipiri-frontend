@@ -7,7 +7,7 @@
     :deletable="true"
     />
     <!-- botao de nova atividade -->
-    <button v-if="!showEditActivity && !showNewActivity" type="submit" @click="newActivity">Nova Localização</button>
+    <button v-if="!showEditActivity && !showNewActivity" type="submit" @click="newActivity">Novo Custo Adicional</button>
     <div v-show="showNewActivity || showEditActivity ">
       <h2>{{ formMode }}</h2>
       <form @submit.prevent="handleSubmit">
@@ -22,7 +22,8 @@
         </div> -->
     </form>
   </div>
-  </template>
+  <div ref="pageBottomDiv"></div>
+</template>
   
   <script setup>
   import DisplayClass from '../components/DisplayClass.vue';
@@ -34,7 +35,7 @@
     name: '',
     cost: 0.0,
   });
-  
+  const pageBottomDiv = ref(null);
   const displayClassKey = ref(0);
   const formMode = ref('')
   const showEditActivity = ref(false)
@@ -66,7 +67,7 @@
       name: '',
       cost: 0.0,
     }
-    formMode.value = "Nova Localização de Evento"
+    formMode.value = "Novo Custo Adicional"
     showEditActivity.value = false
     showNewActivity.value = true
   }
@@ -93,7 +94,7 @@
     // habilitar formulario de edição
     showEditActivity.value = true
     showNewActivity.value = false
-    formMode.value = "Edição de Localização"
+    formMode.value = "Edição de Custo Adicional"
     getItemFromId(item_id, (response) => {
       const item = response.data;
       
@@ -101,7 +102,8 @@
         _id: item._id.split("'")[1],
         name: item.name,
         cost: item.cost,
-      };      
+      };  
+      pageBottomDiv.value.scrollIntoView({ behavior: 'smooth' });    
     });
   };
   
