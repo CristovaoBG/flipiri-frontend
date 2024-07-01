@@ -95,6 +95,9 @@ import ItemDisplayer from './ItemDisplayer.vue';
   
   th {
     background-color: #9b3f3f;
+    position: sticky;
+    top: 0;
+    z-index: 1;
   }
   </style>
   
