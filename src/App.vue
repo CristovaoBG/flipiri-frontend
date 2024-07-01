@@ -25,7 +25,8 @@ const editComponents = ref(
 const visualizeStatusList = ref(
   {
     'Ativdade por autores': ['activity_by_author','author'],
-    'Atividade por Local': ['activity_by_location','location']
+    'Atividade por Local': ['activity_by_location','location'],
+    'Viagem por Autor': ['trip_by_author','author']
   }
 )
 
