@@ -5,6 +5,7 @@ import AuthorsView from './views/AuthorsView.vue';
 import HostingView from './views/HostingView.vue';
 import LocationView from './views/LocationsView.vue';
 import TravelView from './views/TravelView.vue';
+import CategoryView from './views/CategoryView.vue';
 import AditionalCostsView from './views/AditionalCostsView.vue';
 import VisualizeComponent from './components/VisualizeComponent.vue';
 
@@ -18,7 +19,8 @@ const editComponents = ref(
     'Hospedagens': HostingView,
     'Localizações': LocationView,
     'Viagens': TravelView,
-    'Custos Adicionais': AditionalCostsView
+    'Custos Adicionais': AditionalCostsView,
+    'Categorias': CategoryView
   }
 )
 

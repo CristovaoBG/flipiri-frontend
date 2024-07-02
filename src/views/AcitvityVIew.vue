@@ -44,10 +44,18 @@
         <label for="age_range">Idade mínima:</label> <input type="number" id="age_range" v-model="formData.age_range_start" required>
         <label for="age_range2">Idade máxima:</label> <input type="number" id="age_range2" v-model="formData.age_range_end" required>
         <br>
-        <label for="category">Categoria:</label> <input type="text" id="category" v-model="formData.category" required>
+        <label for="category">Categoria: </label>
+        <form> 
+          <select v-model="formData.category">
+            <option v-for="cat in categoryList.value" :key="cat._id" :value="cat">{{ cat.name }}</option>
+          </select>
+        </form>
+
         <br><br>
         <button type="submit" id="add-author-btn">Enviar</button>
         <button @click.prevent="cancelSubmission">Cancelar</button>
+
+
         <!-- <div v-for="(value, key) in formData" :key="key">
           - {{ key }}: {{ value }}
         </div> -->
@@ -71,12 +79,13 @@ const formData = ref({
   location: '',
   age_range_start: '',
   age_range_end: 0,
-  category: ''
+  category: null
 });
 
 const pageBottomDiv = ref(null);
 const selectedAuth = ref('')
 const authorList = reactive({});
+const categoryList = reactive({});
 const locationList = reactive({});
 const displayClassKey = ref(0);
 const formMode = ref('')
@@ -85,6 +94,7 @@ const showNewActivity = ref(false)
 
 onMounted(() => {
   getClassAndFormat('Authors', authorList, "name");
+  getClassAndFormat('Category', categoryList, "name");
   getClassAndFormat('Location', locationList, "name");
 })
 
@@ -136,10 +146,10 @@ const newActivity = () => {
     date_end: '',
     authors: [],
     responsible_author: null,
+    category: null,
     location: '',
     age_range_start: '',
     age_range_end: 0,
-    category: ''
   }
   formMode.value = "Nova Atividade"
   showEditActivity.value = false
@@ -182,11 +192,11 @@ const editItem = (item_id) => {
       date_start: date_start,
       date_end: date_end,
       authors: [],
-      responsible_author: "",
-      location: "",
+      responsible_author: null,
+      location: null,
+      category: null,
       age_range_start: item.age_range_start,
       age_range_end: item.age_range_end,
-      category: item.category
     };
     // formatar lista de autores
     for(let author of item.authors){
@@ -197,9 +207,15 @@ const editItem = (item_id) => {
         formData.value.authors.push(auth)
       })
     }
-        // autor responsavel
+    // autor responsavel
     getItemFromId(item.responsible_author.split("'")[1], (response) => {
       formData.value.responsible_author = {"name": response.data.name, "_id": response.data._id.split("'")[1]}
+    });
+    // categoria
+    getItemFromId(item.category.split("'")[1], (response) => {
+      formData.value.category = {"name": response.data.name, "_id": response.data._id.split("'")[1]}
+      console.log( '\\/')
+      console.log( response.data)
     });
     // localizacao
     getItemFromId(item.location.split("'")[1], (response) => {
