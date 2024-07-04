@@ -16,7 +16,7 @@
         <label for="date">Data de início:</label> <input type="datetime-local" id="date" v-model="formData.date_start" required>
         <br>
         <label for="duration">Data de término:</label> <input type="datetime-local" id="date" v-model="formData.date_end" required>
-        <br>
+        <br> 
         <!-- <label for="authors">Autores:</label> <ul><li v-for="auth in authorsList" :key="auth">{{ auth.author }}</li></ul>> -->
         <form @submit.prevent="submitAuthor">
           Autores: <p v-show="formData.authors.length === 0"> Nenhum autor</p>

@@ -6,8 +6,10 @@ import HostingView from './views/HostingView.vue';
 import LocationView from './views/LocationsView.vue';
 import TravelView from './views/TravelView.vue';
 import CategoryView from './views/CategoryView.vue';
+import MealPriceView from './views/MealPriceView.vue';
 import AditionalCostsView from './views/AditionalCostsView.vue';
 import VisualizeComponent from './components/VisualizeComponent.vue';
+
 
 const editionTablesMode = ref(false);
 
@@ -20,7 +22,9 @@ const editComponents = ref(
     'Localizações': LocationView,
     'Viagens': TravelView,
     'Custos Adicionais': AditionalCostsView,
-    'Categorias': CategoryView
+    'Categorias': CategoryView,
+    'Preço da Refeição': MealPriceView
+    
   }
 )
 
@@ -28,7 +32,9 @@ const visualizeStatusList = ref(
   {
     'Ativdade por autores': ['activity_by_author','author'],
     'Atividade por Local': ['activity_by_location','location'],
-    'Viagem por Autor': ['trip_by_author','author']
+    'Detalhes dos Autores': ['author_details','author'],
+    'Total de custos': ['total_costs', 'name'],
+    'Custo das atividades': ['activity_costs', 'name']
   }
 )
 

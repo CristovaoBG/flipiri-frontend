@@ -2,6 +2,8 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { URL_BASE } from './constants';
 
+//TODO: da pra simplificar isso bastante
+
 export const getClass = (class_name, refVar) => {
   axios
     .get(`${URL_BASE}get_class/`, {
@@ -19,7 +21,6 @@ export const getClass = (class_name, refVar) => {
 }
 
 export const getClassAndFormat = (className, refVar, classIdValue) => {
-  
   axios
     .get(`${URL_BASE}get_class/`, {
       params: {
@@ -45,14 +46,14 @@ export const getClassAndFormat = (className, refVar, classIdValue) => {
 
 export const postData = (url, data, onResponse) => {
   axios.post(URL_BASE + url, data)
-          .then(response => {
-            onResponse(response)
-            })
-          .catch(error => {
-            console.error('Erro ao enviar mensagem ao servidor:', error);
-            alert("Erro no servidor.")
-          });
-        }
+    .then(response => {
+      onResponse(response)
+      })
+    .catch(error => {
+      console.error('Erro ao enviar mensagem ao servidor:', error);
+      alert("Erro no servidor.")
+    });
+  }
 
 export const getItemFromId = (item_id, onResponse) => {
   console.log("sending request for item")
@@ -90,3 +91,31 @@ export const getStatus = (statusLabel, onResponse) => {
   })
 }
 
+
+export const getMealPrice = (onResponse) => {
+  axios
+  .get(`${URL_BASE}get_meal_price/`, {
+    params: {}
+  })
+  .then(response => {
+    onResponse(response)
+    console.log(response)
+  })
+  .catch(error => {
+    console.error('Erro ao fazer a requisição:', error)
+    alert("Erro no servidor.")
+  })
+}
+
+
+
+export const setMealPrice = (data, onResponse) => {
+  axios.post(`${URL_BASE}set_meal_price/`, data)
+    .then(response => {
+      onResponse(response)
+      })
+    .catch(error => {
+      console.error('Erro ao enviar mensagem ao servidor:', error);
+      alert("Erro no servidor.")
+    });
+  }
