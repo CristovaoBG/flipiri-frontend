@@ -1,10 +1,14 @@
 <template>
-    <div>
       <h2>Tabela {{ table_name }}</h2>
       <table>
         <thead>
           <tr>
-            <th v-for="k in keys" :key="k" @click.prevent="(e) => {console.log(e)}">{{ k }}</th>
+            <th
+            v-for="k in keys"
+            :key="k"
+            @click.prevent="(e) => {console.log(e)}">
+              {{ header.language? header.translation[k]:k }}
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -17,9 +21,8 @@
           </tr>
         </tbody>
       </table>
-    </div>
   </template>
-  
+
   <script>
 import ItemDisplayer from './ItemDisplayer.vue';
   export default {
@@ -44,6 +47,14 @@ import ItemDisplayer from './ItemDisplayer.vue';
       yLabel: {
         type: String,
         default: ""
+      },
+      header: {
+        type: Object,
+        default: {
+          translation: {},
+          order: [],
+          language: null
+        }
       }
     },
     data() {
@@ -57,17 +68,19 @@ import ItemDisplayer from './ItemDisplayer.vue';
     },
     computed: {
       keys() {
-            let ks = Object.keys(Object.values(this.dictionary)[0])
-            console.log(ks)
-            if (this.yLabel !== "") {
-              const id = ks.indexOf(this.yLabel);
-              if (id >=0) { // Verifica se y_label está presente em ks
-                ks.splice(id, 1); // Remove y_label de ks
-              }
-              ks = [this.yLabel, ...ks]
-            }
-            return ks;
+        let ks = Object.keys(Object.values(this.dictionary)[0])
+        if (this.yLabel !== "") { //TODO isso aqui ta obsoleto
+          const id = ks.indexOf(this.yLabel);
+          if (id >=0) { // Verifica se y_label está presente em ks
+            ks.splice(id, 1); // Remove y_label de ks
+          }
+          ks = [this.yLabel, ...ks]
+          return ks;
         }
+        if(this.header.order){
+          return this.header.order
+        }
+      }
     },
     methods: {
       editItem(id){

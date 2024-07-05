@@ -30,11 +30,11 @@ const editComponents = ref(
 
 const visualizeStatusList = ref(
   {
-    'Ativdade por autores': ['activity_by_author','author'],
-    'Atividade por Local': ['activity_by_location','location'],
-    'Detalhes dos Autores': ['author_details','author'],
-    'Total de custos': ['total_costs', 'name'],
-    'Custo das atividades': ['activity_costs', 'name']
+    'Ativdade por autores': ['activity_by_author','Autor'],
+    'Atividade por Local': ['activity_by_location','Localização'],
+    'Detalhes dos Autores': ['author_details','Autor'],
+    'Total de custos': ['total_costs', 'Nome'],
+    'Custo das atividades': ['activity_costs', 'Nome']
   }
 )
 

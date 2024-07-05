@@ -1,7 +1,8 @@
 <template>
     <div v-if="isLoading">Carregando...</div>
     <SheetViewer v-else 
-    :dictionary="value" 
+    :dictionary="value"
+    :header="header"
     :table_name="this.class_name"
     :editable="editable"
     :deletable="deletable"/>
@@ -16,11 +17,13 @@
     props: ['class_name', 'editable', 'deletable'],
     data() {
       return {
-        value: null,
+        value: [],
+        header: [],
         isLoading: true,
       };
     },
     mounted() {
+      // pega dicionario
       axios
         .get(URL_BASE + 'get_class/', {
           params: {
@@ -34,6 +37,21 @@
         .catch((error) => {
           console.error('Erro ao fazer a requisição:', error);
           this.isLoading = false;
+        });
+      // pega chaves (traducao)
+      axios
+        .get(URL_BASE + 'get_class_header/', {
+          params: {
+            class_name: this.class_name,
+            language: "pt"
+          },
+        })
+        .then((response) => {
+          this.header = response.data;
+          console.log(response.data)
+        })
+        .catch((error) => {
+          console.error('Erro ao fazer a requisição:', error);
         });
     },
     components: { SheetViewer },
