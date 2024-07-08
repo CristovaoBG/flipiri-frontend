@@ -3,7 +3,7 @@
     <SheetViewer v-else 
     :dictionary="value"
     :header="header"
-    :table_name="this.class_name"
+    :tableName="this.class_name"
     :editable="editable"
     :deletable="deletable"/>
   </template>

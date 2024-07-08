@@ -1,1 +1,1 @@
-export const URL_BASE = 'http://179.48.44.218:5000/'
+export const URL_BASE = 'https://flipiri-demo.zapto.org:443/'

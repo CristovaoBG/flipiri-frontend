@@ -22,11 +22,11 @@
             if (!input.match(datePattern)) return input; 
             let date = new Date(input);
             if (isNaN(date)) return input; 
-            let day = date.getDate().toString().padStart(2, '0');
-            let month = date.getMonth().toString().padStart(2, '0');
+            let day = date.getUTCDate().toString().padStart(2, '0');
+            let month = (date.getUTCMonth()+1).toString().padStart(2, '0'); // (0->11) +1
             let year = date.getFullYear().toString().padStart(2, '0');
-            let hour = date.getHours()
-            let minutes = date.getMinutes().toString().padStart(2, '0');
+            let hour = date.getUTCHours()
+            let minutes = date.getUTCMinutes().toString().padStart(2, '0');
             minutes = minutes == '00'? '': minutes
             return `${day}/${month}/${year}<br>${hour}h${minutes}`;
         },

@@ -1,5 +1,8 @@
 <template>
-    <SheetViewer v-if="finishedLoading" :dictionary="dictionary" :y-label="yLabel"/>
+    <SheetViewer v-if="finishedLoading"
+      :dictionary="dictionary"
+      :y-label="yLabel"
+      :table-name="tableName"/>
     <h2 v-else>Carregando...</h2>
 </template>
 
@@ -17,6 +20,9 @@ const props = defineProps({
     default: ''
   },
   yLabel: {
+    type: String,
+  },
+  tableName: {
     type: String,
   }
 });

@@ -40,7 +40,7 @@ const visualizeStatusList = ref(
 
 const displayClassKey = ref(0)
 
-const currentVisualizeStatus = ref(visualizeStatusList.value['Ativdade por autores'])
+const currentKey = ref('Ativdade por autores')
 
 const toggleMode = () => {
   editionTablesMode.value = !editionTablesMode.value
@@ -60,13 +60,16 @@ const toggleMode = () => {
     <component :is="currentEditComponent"/>
   </div>
   <div v-else>
-    <button v-for="id in Object.keys(visualizeStatusList)"
-      :key="id"
-      @click.prevent="() => {currentVisualizeStatus = visualizeStatusList[id]; displayClassKey+=1} ">{{ id }}
+    <button v-for="k in Object.keys(visualizeStatusList)"
+      :key="k"
+      @click.prevent="() => {currentKey = k; displayClassKey+=1} ">{{ k }}
     </button>
-    <VisualizeComponent :status-label="currentVisualizeStatus[0]" :y-label="currentVisualizeStatus[1]" :key="displayClassKey"/>
-    <!-- <VisualizeComponent :status-label="'activity_by_location'" :y-label="'location'"/><br>
-    <VisualizeComponent :status-label="'activity_by_author'" :y-label="'author'"/><br> -->
+    <VisualizeComponent
+      :status-label="visualizeStatusList[currentKey][0]"
+      :y-label="visualizeStatusList[currentKey][1]"
+      :key="displayClassKey"
+      :table-name="currentKey"
+      />
   </div>
 
 </template>

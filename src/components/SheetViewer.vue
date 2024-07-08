@@ -1,5 +1,5 @@
 <template>
-      <h2>Tabela {{ table_name }}</h2>
+      <h2>{{ header.class_name !== ''? 'Tabela ' + header.class_name : tableName }}</h2>
       <table>
         <thead>
           <tr>
@@ -32,7 +32,7 @@ import ItemDisplayer from './ItemDisplayer.vue';
         type: Object,
         default: [{}]
       },
-      table_name: {
+      tableName: {
         type: String,
         default: 'TABELA'
       },
@@ -53,7 +53,8 @@ import ItemDisplayer from './ItemDisplayer.vue';
         default: {
           translation: {},
           order: [],
-          language: null
+          language: null,
+          class_name: ''
         }
       }
     },
