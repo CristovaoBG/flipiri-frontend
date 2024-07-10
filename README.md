@@ -77,5 +77,5 @@ The project is divided into two repositories:
 
 ## Contact
 
-cristovao@live.com
-https://www.linkedin.com/in/crist%C3%B3v%C3%A3o-bartholo-ba5505202/
+- cristovao@live.com
+- https://www.linkedin.com/in/crist%C3%B3v%C3%A3o-bartholo-ba5505202/
