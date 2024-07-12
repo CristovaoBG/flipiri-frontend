@@ -69,6 +69,10 @@ import ItemDisplayer from './ItemDisplayer.vue';
     },
     computed: {
       keys() {
+        if(Object.values(this.dictionary).length === 0){
+          console.log('0')
+          return []
+        }
         let ks = Object.keys(Object.values(this.dictionary)[0])
         if (this.yLabel !== "") { //TODO isso aqui ta obsoleto
           const id = ks.indexOf(this.yLabel);

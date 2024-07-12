@@ -17,7 +17,7 @@
     props: ['class_name', 'editable', 'deletable'],
     data() {
       return {
-        value: [],
+        value: [{}],
         header: [],
         isLoading: true,
       };
